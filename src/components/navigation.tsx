@@ -15,6 +15,10 @@ const Navigation: React.FC<{currentPage: number; setCurrentPage: (page: number) 
     }
   };
 
+  const showFavourite = () => {
+    const newPageNumber = 100;
+      setCurrentPage(newPageNumber);
+  };
   return (
     <div className="navigation">
       <div className="navigation__item">
@@ -23,7 +27,7 @@ const Navigation: React.FC<{currentPage: number; setCurrentPage: (page: number) 
         </button>
       </div>
       <div className="navigation__item">
-        <button className="navigation__button" onClick={prevPage}>
+        <button className="navigation__button" onClick={showFavourite}>
           Show Favourites
         </button>
       </div>
