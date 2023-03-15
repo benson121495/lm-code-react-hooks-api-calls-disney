@@ -12,25 +12,27 @@ const App: React.FC = () => {
 
   // Some dummy state representing disney characters
   const [characters, setCharacters] = useState<Array<DisneyCharacter>>([]);
+  const [characterFavourites, setCharacterFavourites] = useState<Array<number>>([]);
 
   useEffect(() => {
-    getCharacters(1);
-    console.log("useEffect triggered");
-  }, []);
-
-  const getCharacters = async (pageNumber: number) => {
-    const apiResponse = await fetch(`http://api.disneyapi.dev/characters?page=${pageNumber}`);
-    const json = await apiResponse.json() as { data: DisneyCharacter[] };
-    setCharacters(json.data);
-  };
+    const getCharacters = async (pageNumber: number) => {
+      const apiResponse = await fetch(`http://api.disneyapi.dev/characters?page=${pageNumber}`);
+      const json = await apiResponse.json() as { data: DisneyCharacter[] };
+      setCharacters(json.data);
+    };
+    getCharacters(currentPage);
+  }, [currentPage]);
 
   return (
     <div className="page">
       <Header currentPage={currentPage} />
       <Navigation
         currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <CharacterContainer characters={characters} />
-    </div>
+ <CharacterContainer 
+        characters={characters}
+        characterFavourites={characterFavourites}
+        updateFavourites={setCharacterFavourites} 
+      />    </div>
   );
 };
 
